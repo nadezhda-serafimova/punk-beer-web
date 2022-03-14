@@ -7,12 +7,12 @@ import {
   CardActions,
   Box,
   Typography,
-  ButtonBase,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Star as StarIcon } from '@mui/icons-material';
 import { useAPI } from 'providers/BeersContextProvider';
 import { BeerProps } from 'types';
+import _debounce from 'lodash/debounce';
 
 const Img = styled('img')({
   margin: 'auto',
@@ -21,17 +21,21 @@ const Img = styled('img')({
   maxHeight: '100%',
 });
 
-const BeerCard = ({beer, isHome}: { beer: BeerProps, isHome?: boolean}) => {
+const beerSound = new Audio('/assets/beer-opening.mp3');
+
+const BeerCard = ({ beer, isHome }: { beer: BeerProps, isHome?: boolean }) => {
   const { id, name, description, image_url } = beer;
   const { addFav } = useAPI();
+
+  const debouncePlayingBeerSound = _debounce(() => beerSound.play(), 300);
 
   return (
     <Grid item key={id} sm={6} md={4}>
       <Card sx={{ display: 'flex', alignItems: 'center', height: '100%' }}>
         <Box>
-          <ButtonBase sx={{ width: 150, height: 150 }}>
+          <Button sx={{ width: 150, height: 150 }} onClick={debouncePlayingBeerSound}>
             <Img alt={name} src={image_url} />
-          </ButtonBase>
+          </Button>
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
           <CardContent sx={{ flex: '1 0 auto' }}>
