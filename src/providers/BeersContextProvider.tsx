@@ -8,6 +8,7 @@ interface IApiContext {
   isLoading: boolean;
   fetchData: (query?: string) => void;
   addFav: (beer: BeerProps) => void;
+  getRandomBeer: () => Promise<BeerProps> | null;
 }
 
 const defaultState = {
@@ -18,6 +19,7 @@ const defaultState = {
   },
   addFav: (beer: BeerProps) => {
   },
+  getRandomBeer: () => null
 };
 
 const APIContext = createContext<IApiContext>(defaultState);
@@ -37,6 +39,18 @@ export const BeersContextProvider = ({ children }: React.PropsWithChildren<{}>) 
     setIsLoading(false);
   }
 
+  async function getRandomBeer(): Promise<BeerProps> {
+    const response = await axios.get(
+      'https://api.punkapi.com/v2/beers/random',
+    );
+
+    const { id, name, description, image_url: imageUrl } =  response.data[0]
+
+    return {
+      id, name, description, image_url: imageUrl
+    }
+  }
+
   const addFav = (beer: any) => {
     const favBeers = [...favourites, beer];
     setFavourites(favBeers);
@@ -53,6 +67,7 @@ export const BeersContextProvider = ({ children }: React.PropsWithChildren<{}>) 
         beers,
         favourites,
         fetchData,
+        getRandomBeer,
         addFav,
       }}
     >

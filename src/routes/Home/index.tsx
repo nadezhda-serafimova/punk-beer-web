@@ -3,7 +3,7 @@ import {
   Container,
   Box,
   CircularProgress,
-  Typography
+  Typography,
 } from '@mui/material';
 import Search from 'components/Search';
 import BeersListing from 'components/BeersListing';
@@ -12,7 +12,11 @@ import { useAPI } from 'providers/BeersContextProvider';
 const Home = () => {
   const { isLoading, beers } = useAPI();
 
-  if (isLoading) return <CircularProgress />;
+  if (isLoading) return (
+    <Box sx={{ display: 'flex', justifyContent: 'center', m: '50px 0' }}>
+      <CircularProgress />
+    </Box>
+  );
 
   return (
     <Container maxWidth='xl'>

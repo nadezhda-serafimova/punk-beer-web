@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Grid,
   Button,
   Card,
   CardContent,
@@ -30,7 +29,6 @@ const BeerCard = ({ beer, isHome }: { beer: BeerProps, isHome?: boolean }) => {
   const debouncePlayingBeerSound = _debounce(() => beerSound.play(), 300);
 
   return (
-    <Grid item key={id} sm={6} md={4}>
       <Card sx={{ display: 'flex', alignItems: 'center', height: '100%' }}>
         <Box>
           <Button sx={{ width: 150, height: 150 }} onClick={debouncePlayingBeerSound}>
@@ -59,7 +57,6 @@ const BeerCard = ({ beer, isHome }: { beer: BeerProps, isHome?: boolean }) => {
           }
         </Box>
       </Card>
-    </Grid>
   );
 };
 

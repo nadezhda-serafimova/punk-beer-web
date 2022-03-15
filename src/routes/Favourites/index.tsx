@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Container,
-  CircularProgress,
   Typography,
   Box,
 } from '@mui/material';
@@ -9,9 +8,7 @@ import BeersListing from 'components/BeersListing'
 import { useAPI } from 'providers/BeersContextProvider';
 
 const Favourites = () => {
-  const { isLoading, favourites } = useAPI();
-
-  if (isLoading) return <CircularProgress />;
+  const { favourites } = useAPI();
 
   return (
     <Container maxWidth='xl'>
