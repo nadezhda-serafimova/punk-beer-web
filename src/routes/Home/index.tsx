@@ -8,6 +8,7 @@ import {
 import Search from 'components/Search';
 import BeersListing from 'components/BeersListing';
 import { useAPI } from 'providers/BeersContextProvider';
+import { BeerCardType } from 'types';
 
 const Home = () => {
   const { isLoading, beers } = useAPI();
@@ -23,7 +24,7 @@ const Home = () => {
       <Search />
       {
         beers.length > 0
-          ? <BeersListing beers={beers} isHome />
+          ? <BeersListing beers={beers} type={BeerCardType.Home} />
           : <Box
             sx={{
               p: '2px 4px',

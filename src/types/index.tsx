@@ -4,3 +4,9 @@ export type BeerProps = {
   description: string;
   image_url: string;
 }
+
+export enum BeerCardType {
+  Home,
+  Fav,
+  Random,
+}

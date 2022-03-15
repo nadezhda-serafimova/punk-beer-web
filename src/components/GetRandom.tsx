@@ -4,7 +4,7 @@ import { Close as CloseIcon, SportsBar as SportsBarIcon } from '@mui/icons-mater
 import { styled } from '@mui/material/styles';
 import { useAPI } from 'providers/BeersContextProvider';
 import BeerCard from './BeerCard';
-import { BeerProps } from 'types';
+import { BeerProps, BeerCardType } from 'types';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -93,7 +93,7 @@ export default function GetRandom() {
                   ? <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                     <CircularProgress />
                   </Box>
-                  : <BeerCard beer={randomBeer!} />
+                  : <BeerCard beer={randomBeer!} type={BeerCardType.Random} />
               }
             </Grid>
           </Grid>

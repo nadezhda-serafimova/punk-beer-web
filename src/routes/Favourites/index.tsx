@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import BeersListing from 'components/BeersListing'
 import { useAPI } from 'providers/BeersContextProvider';
+import { BeerCardType } from 'types';
 
 const Favourites = () => {
   const { favourites } = useAPI();
@@ -21,7 +22,7 @@ const Favourites = () => {
       </Box>
       {
         favourites.length > 0
-          ? <BeersListing beers={favourites} />
+          ? <BeersListing beers={favourites} type={BeerCardType.Fav} />
           : <Box
             sx={{
               m: '40px auto',

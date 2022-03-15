@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Button,
   Card,
@@ -6,11 +6,13 @@ import {
   CardActions,
   Box,
   Typography,
+  Chip,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Star as StarIcon } from '@mui/icons-material';
+import hash from 'object-hash';
 import { useAPI } from 'providers/BeersContextProvider';
-import { BeerProps } from 'types';
+import { BeerProps, BeerCardType } from 'types';
 import _debounce from 'lodash/debounce';
 
 const Img = styled('img')({
@@ -22,9 +24,20 @@ const Img = styled('img')({
 
 const beerSound = new Audio('/assets/beer-opening.mp3');
 
-const BeerCard = ({ beer, isHome }: { beer: BeerProps, isHome?: boolean }) => {
+const BeerCard = ({ beer, type }: { beer: BeerProps, type: BeerCardType }) => {
+  const [isOutdated, setIsOutdated] = React.useState<boolean>(false);
+
   const { id, name, description, image_url } = beer;
-  const { addFav, favourites } = useAPI();
+  const { addFav, favourites, fetchSingle } = useAPI();
+
+  const checkForUpdate = async () => {
+    const updatedBeer = await fetchSingle(beer.id);
+    setIsOutdated(hash(beer) !== hash(updatedBeer));
+  };
+
+  useEffect(() => {
+    if (type === BeerCardType.Fav) checkForUpdate();
+  }, [type]);
 
   const debouncePlayingBeerSound = _debounce(() => beerSound.play(), 300);
 
@@ -45,9 +58,16 @@ const BeerCard = ({ beer, isHome }: { beer: BeerProps, isHome?: boolean }) => {
           <Typography>
             {description.length > 200 ? description.substring(0, 200) + '...' : description}
           </Typography>
+          {type === BeerCardType.Fav && (
+            <Box sx={{ mt: '12px' }}>
+              {isOutdated
+                ? <Chip label='Outdated' color='warning' variant="outlined" />
+                : <Chip label='Up to date' color='info' variant="outlined" />}
+            </Box>
+          )}
         </CardContent>
         {
-          isHome && (
+          type === BeerCardType.Home && (
             <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
               <CardActions>
                 <Button

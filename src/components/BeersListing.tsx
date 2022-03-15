@@ -1,14 +1,14 @@
 import React from 'react';
 import { Grid } from '@mui/material';
 import BeerCard from './BeerCard';
-import { BeerProps } from 'types';
+import { BeerProps, BeerCardType } from 'types';
 
-const BeersListing = ({ beers, isHome }: { beers: BeerProps[], isHome?: boolean }) => {
+const BeersListing = ({ beers, type }: { beers: BeerProps[], type: BeerCardType }) => {
   return (
     <Grid container spacing={4} justifyContent='flex-start' alignItems='stretch' sx={{ mb: '60px' }}>
       {beers.map((beer: BeerProps) => (
         <Grid item key={beer.id} sm={6} md={4}>
-          <BeerCard beer={beer} isHome={isHome} />
+          <BeerCard beer={beer} type={type} />
         </Grid>
       ))}
     </Grid>
