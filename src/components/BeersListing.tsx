@@ -7,7 +7,7 @@ const BeersListing = ({ beers, type }: { beers: BeerProps[], type: BeerCardType 
   return (
     <Grid container spacing={4} justifyContent='flex-start' alignItems='stretch' sx={{ mb: '60px' }}>
       {beers.map((beer: BeerProps) => (
-        <Grid item key={beer.id} sm={6} md={4}>
+        <Grid item key={beer.id} md={6} lg={4}>
           <BeerCard beer={beer} type={type} />
         </Grid>
       ))}

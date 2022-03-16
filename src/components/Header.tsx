@@ -1,6 +1,16 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, AppBar, Box, Toolbar, IconButton, Typography, Menu, MenuItem, Button } from '@mui/material';
+import {
+  Container,
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  MenuItem,
+  Button,
+} from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import GetRandom from './GetRandom';
 
@@ -38,8 +48,8 @@ const Header = () => {
       <AppBar position='static'>
         <Container maxWidth='xl'>
           <Toolbar>
-            <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-              LOGO
+            <Typography color='white' variant='h6' component='div' sx={{ flexGrow: 1 }}>
+              PUNK BEER
             </Typography>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
@@ -56,7 +66,7 @@ const Header = () => {
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size='large'
-                aria-label='account of current user'
+                aria-label='main nav'
                 aria-controls='menu-appbar'
                 aria-haspopup='true'
                 onClick={handleOpenNavMenu}
@@ -84,7 +94,7 @@ const Header = () => {
               >
                 {pages.map((page) => (
                   <MenuItem key={page.name} onClick={() => handleMenuItemClick(page.url)}>
-                    <Typography textAlign="center">{page.name}</Typography>
+                    <Typography textAlign='center'>{page.name}</Typography>
                   </MenuItem>
                 ))}
               </Menu>

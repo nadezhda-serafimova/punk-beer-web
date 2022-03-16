@@ -7,9 +7,9 @@ import _debounce from 'lodash/debounce';
 const Search = () => {
   const { fetchData } = useAPI();
 
-  const debounceFn = _debounce(fetchData, 300)
+  const debounceFn = _debounce(fetchData, 300);
 
-  const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => debounceFn(e.target.value)
+  const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => debounceFn(e.target.value);
 
   return (
     <Paper
@@ -22,7 +22,7 @@ const Search = () => {
         inputProps={{ 'aria-label': 'search' }}
         onChange={handleFilter}
       />
-      <IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
+      <IconButton type='submit' disabled sx={{ p: '10px' }} aria-label='search'>
         <SearchIcon />
       </IconButton>
     </Paper>

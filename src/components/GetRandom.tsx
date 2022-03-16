@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { Box, Grid, Button, Dialog, DialogTitle, DialogContent, DialogActions, IconButton, CircularProgress } from '@mui/material';
+import {
+  Box,
+  Grid,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  IconButton,
+  CircularProgress
+} from '@mui/material';
 import { Close as CloseIcon, SportsBar as SportsBarIcon } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { useAPI } from 'providers/BeersContextProvider';
@@ -75,14 +85,14 @@ export default function GetRandom() {
         onClick={handleRandomBeer}
         sx={{ my: 2, ml: 2 }}
       >
-        Get random beer
+        Random beer
       </Button>
       <BootstrapDialog
         onClose={handleClose}
-        aria-labelledby='customized-dialog-title'
+        aria-labelledby='dialog-title'
         open={open}
       >
-        <BootstrapDialogTitle id='customized-dialog-title' onClose={handleClose}>
+        <BootstrapDialogTitle id='dialog-title' onClose={handleClose}>
           Cheers!
         </BootstrapDialogTitle>
         <DialogContent dividers>
