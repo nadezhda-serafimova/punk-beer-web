@@ -28,11 +28,10 @@ const Home = () => {
           : <Box
             sx={{
               p: '2px 4px',
-              m: '40px auto',
+              m: '40px 0',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              width: 400,
             }}
           >
             <Typography gutterBottom variant='h5' component='h2'>

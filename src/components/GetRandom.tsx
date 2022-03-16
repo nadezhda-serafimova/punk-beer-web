@@ -56,7 +56,7 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
   );
 };
 
-export default function GetRandom() {
+const GetRandom = () => {
   const { getRandom } = useAPI();
   const [open, setOpen] = useState(false);
   const [randomBeer, setRandomBeer] = useState<null | BeerProps>(null);
@@ -65,6 +65,7 @@ export default function GetRandom() {
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -117,3 +118,5 @@ export default function GetRandom() {
     </div>
   );
 }
+
+export default GetRandom;

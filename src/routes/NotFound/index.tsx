@@ -10,7 +10,7 @@ const NotFound = () => {
       <Box
         sx={{ m: '40px auto', display: 'flex', flexDirection: 'column', alignItems: 'center', width: 400 }}
       >
-        <Typography gutterBottom variant='h5' component='h5'>
+        <Typography gutterBottom variant='h4' component='h4'>
           404 Page Not Found
         </Typography>
         <Button variant='contained' startIcon={<HomeIcon />} sx={{ mt: '20px' }} onClick={() => navigate('/')}>
