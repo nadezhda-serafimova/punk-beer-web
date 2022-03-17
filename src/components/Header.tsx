@@ -48,7 +48,7 @@ const Header = () => {
       <AppBar position='static'>
         <Container maxWidth='xl'>
           <Toolbar>
-            <Typography color='white' variant='h6' component='div' sx={{ flexGrow: 1 }}>
+            <Typography color='white' variant='h6' component='div' sx={{ flexGrow: 1, cursor: 'pointer' }} onClick={() => navigate('/')}>
               PUNK BEER
             </Typography>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
