@@ -30,9 +30,13 @@ const APIContext = createContext<IApiContext>(defaultState);
 
 export const BeersContextProvider = ({ children }: React.PropsWithChildren<{}>) => {
   const [beers, setBeers] = useState([]);
-  const [favourites, setFavourites] = useState<any[]>(localStorage.favourites ? JSON.parse(localStorage.getItem('favourites') || '') : []);
+  const [favourites, setFavourites] = useState<any[]>(localStorage.favourites
+    ? JSON.parse(localStorage.getItem('favourites') || '')
+    : []
+  );
   const [isLoading, setIsLoading] = useState(true);
 
+  // Fetch beers
   async function fetchData(query?: string) {
 
     const { data } = await axios.get(
@@ -43,6 +47,7 @@ export const BeersContextProvider = ({ children }: React.PropsWithChildren<{}>) 
     setIsLoading(false);
   }
 
+  // Get random beer
   async function getRandom(): Promise<BeerProps> {
     const response = await axios.get(
       'https://api.punkapi.com/v2/beers/random',
@@ -55,12 +60,14 @@ export const BeersContextProvider = ({ children }: React.PropsWithChildren<{}>) 
     }
   }
 
+  // Add beer to favourites
   const addFav = (beer: any) => {
     const favBeers = [...favourites, { ...beer, isOutdated: false}];
     setFavourites(favBeers);
     localStorage.setItem('favourites', JSON.stringify(favBeers));
   };
 
+  // Check favourite beers for update
   async function checkFavourites() {
     const ids: string = favourites.map(fav => fav.id).join('|');
 
@@ -81,6 +88,7 @@ export const BeersContextProvider = ({ children }: React.PropsWithChildren<{}>) 
   useEffect(() => {
     fetchData();
   }, []);
+
   return (
     <APIContext.Provider
       value={{

@@ -8,7 +8,7 @@ import {
   DialogContent,
   DialogActions,
   IconButton,
-  CircularProgress
+  CircularProgress,
 } from '@mui/material';
 import { Close as CloseIcon, SportsBar as SportsBarIcon } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
@@ -19,7 +19,10 @@ import { BeerProps, BeerCardType } from 'types';
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
-    width : '400px',
+    width: '100%',
+    [theme.breakpoints.up('xs')]: {
+      width: '400px',
+    },
   },
   '& .MuiDialogActions-root': {
     padding: theme.spacing(1),
@@ -117,6 +120,6 @@ const GetRandom = () => {
       </BootstrapDialog>
     </div>
   );
-}
+};
 
 export default GetRandom;
