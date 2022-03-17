@@ -22,6 +22,11 @@ function App() {
   const [walletAddress, setWalletAddress] = useState<string>('');
   const [error, setError] = useState<string>('');
 
+  window.ethereum.on('accountsChanged', function () {
+    // Time to reload your interface with accounts[0]!
+    setWalletAddress('');
+  })
+
   // Requests access to the user's META MASK WALLET
   async function requestAccount() {
 
