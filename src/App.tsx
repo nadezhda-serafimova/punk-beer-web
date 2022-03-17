@@ -22,7 +22,7 @@ function App() {
   const [walletAddress, setWalletAddress] = useState<string>('');
   const [error, setError] = useState<string>('');
 
-  window.ethereum.on('accountsChanged', function () {
+  window.ethereum?.on('accountsChanged', function () {
     setWalletAddress('');
   })
 
