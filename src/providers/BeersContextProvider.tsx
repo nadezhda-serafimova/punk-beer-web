@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, createContext } from 'react';
 import axios from 'axios';
+import hash from 'object-hash';
 import { BeerProps } from 'types';
 
 interface IApiContext {
@@ -7,8 +8,8 @@ interface IApiContext {
   favourites: BeerProps[];
   isLoading: boolean;
   fetchData: (query?: string) => void;
-  fetchSingle: (id: number) => Promise<BeerProps> | null;
   addFav: (beer: BeerProps) => void;
+  checkFavourites: () => void;
   getRandom: () => Promise<BeerProps> | null;
 }
 
@@ -18,8 +19,9 @@ const defaultState = {
   isLoading: false,
   fetchData: () => {
   },
-  fetchSingle: (id: number) => null,
   addFav: (beer: BeerProps) => {
+  },
+  checkFavourites: () => {
   },
   getRandom: () => null
 };
@@ -53,19 +55,28 @@ export const BeersContextProvider = ({ children }: React.PropsWithChildren<{}>) 
     }
   }
 
-  async function fetchSingle(id: number): Promise<BeerProps> {
-    const response = await axios.get(
-      `https://api.punkapi.com/v2/beers/${id}`,
-    );
-
-    return response.data[0]
-  }
-
   const addFav = (beer: any) => {
-    const favBeers = [...favourites, beer];
+    const favBeers = [...favourites, { ...beer, isOutdated: false}];
     setFavourites(favBeers);
     localStorage.setItem('favourites', JSON.stringify(favBeers));
   };
+
+  async function checkFavourites() {
+    const ids: string = favourites.map(fav => fav.id).join('|');
+
+    const { data } = await axios.get(
+      `https://api.punkapi.com/v2/beers?ids=${ids}`,
+    );
+
+    setFavourites(favourites.map(fav => {
+      delete fav['isOutdated'];
+      const updatedBeer = data.find((d: any) => d.id === fav.id);
+      return {
+        ...fav,
+        isOutdated: hash(fav) !== hash(updatedBeer)
+      }
+    }))
+  }
 
   useEffect(() => {
     fetchData();
@@ -77,9 +88,9 @@ export const BeersContextProvider = ({ children }: React.PropsWithChildren<{}>) 
         beers,
         favourites,
         fetchData,
-        fetchSingle,
         getRandom,
         addFav,
+        checkFavourites,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Container,
   Typography,
@@ -9,7 +9,11 @@ import { useAPI } from 'providers/BeersContextProvider';
 import { BeerCardType } from 'types';
 
 const Favourites = () => {
-  const { favourites } = useAPI();
+  const { favourites, checkFavourites } = useAPI();
+
+  useEffect(() => {
+    checkFavourites();
+  }, []);
 
   return (
     <Container maxWidth='xl'>

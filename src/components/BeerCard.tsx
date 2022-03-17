@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Button,
   Card,
@@ -10,7 +10,6 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Star as StarIcon } from '@mui/icons-material';
-import hash from 'object-hash';
 import { useAPI } from 'providers/BeersContextProvider';
 import { BeerProps, BeerCardType } from 'types';
 import _debounce from 'lodash/debounce';
@@ -25,19 +24,9 @@ const Img = styled('img')({
 const beerSound = new Audio('/assets/beer-opening.mp3');
 
 const BeerCard = ({ beer, type }: { beer: BeerProps, type: BeerCardType }) => {
-  const [isOutdated, setIsOutdated] = React.useState<boolean>(false);
 
-  const { id, name, description, image_url } = beer;
-  const { addFav, favourites, fetchSingle } = useAPI();
-
-  const checkForUpdate = async () => {
-    const updatedBeer = await fetchSingle(beer.id);
-    setIsOutdated(hash(beer) !== hash(updatedBeer));
-  };
-
-  useEffect(() => {
-    if (type === BeerCardType.Fav) checkForUpdate();
-  }, [type]);
+  const { id, name, description, image_url, isOutdated } = beer;
+  const { addFav, favourites } = useAPI();
 
   const debouncePlayingBeerSound = _debounce(() => beerSound.play(), 300);
 

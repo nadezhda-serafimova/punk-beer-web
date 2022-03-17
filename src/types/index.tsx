@@ -3,6 +3,7 @@ export type BeerProps = {
   name: string;
   description: string;
   image_url: string;
+  isOutdated?: boolean;
 }
 
 export enum BeerCardType {
