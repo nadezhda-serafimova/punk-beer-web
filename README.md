@@ -22,3 +22,4 @@ Data source - [Punk API](https://punkapi.com/).
 2. Build the project - `yarn build`
 
 ## Demo
+https://punk-beer-web.vercel.app/
